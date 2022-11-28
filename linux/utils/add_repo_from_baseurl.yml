@@ -20,7 +20,8 @@
 - name: "Set default GPG key"
   ansible.builtin.set_fact:
     gpg_key_path: |-
-      {%- if guest_os_ansible_distribution == "RedHat" -%}file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+      {%- if guest_os_ansible_distribution == "RedHat" -%}file:///etc/pki/rpm-gpg/RPM-GPG-KEY-prolinux-7-release
+      {%- elif guest_os_ansible_distribution == "RedHat" -%}file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
       {%- elif guest_os_ansible_distribution == "CentOS" -%}file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
       {%- elif guest_os_ansible_distribution == "Rocky" -%}file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rockyofficial
       {%- elif guest_os_ansible_distribution == "OracleLinux"  -%}file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
