@@ -13,7 +13,7 @@
 
 - name: "Initialize the timeout seconds to wait for ping IP address successfully"
   ansible.builtin.set_fact:
-    vm_wait_ping_timeout: 900
+    vm_wait_ping_timeout: 25
   when: vm_wait_ping_timeout is undefined or not vm_wait_ping_timeout
 
 - name: "Try to ping IP"
