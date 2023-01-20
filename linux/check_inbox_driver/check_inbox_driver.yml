@@ -1,4 +1,4 @@
-# Copyright 2021-2022 VMware, Inc.
+# Copyright 2021-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 # Description:
@@ -44,7 +44,7 @@
           when: vmtools_is_ovt is defined and vmtools_is_ovt
 
         # Get cloud-init version
-        - include_tasks: ../utils/cloudinit_pkg_check.yml
+        - include_tasks: ../utils/get_cloudinit_version.yml
 
         - name: "Collect cloud-init version"
           ansible.builtin.set_fact:
@@ -72,7 +72,7 @@
 
         - name: "Set fact of the output file path"
           ansible.builtin.set_fact:
-            os_release_info_file_path: "{{ current_test_log_folder }}/{{ inbox_drivers_versions['Release'].replace(' ','-') | lower }}.json"
+            os_release_info_file_path: "{{ current_test_log_folder }}/{{ inbox_drivers_versions['Release'].replace('/','-').replace(' ','-') | lower }}.json"
 
         - name: "The inbox drivers versions will be dump to a json file"
           ansible.builtin.debug: var=os_release_info_file_path

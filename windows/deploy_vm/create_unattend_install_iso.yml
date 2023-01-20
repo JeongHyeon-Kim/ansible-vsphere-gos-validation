@@ -1,4 +1,4 @@
-# Copyright 2021-2022 VMware, Inc.
+# Copyright 2021-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 # This task is used for generating ISO file containing OS unattend auto install
@@ -41,7 +41,7 @@
     create_iso_src: "{{ unattend_install_file_list }}"
     create_iso_dest: "{{ local_cache }}/{{ unattend_install_iso }}"
 
-# Copy generated unattend install ISO file to ESXi host 
+# Copy generated unattend install ISO file to ESXi host
 - include_tasks: ../../common/esxi_upload_datastore_file.yml
   vars:
     src_file_path: "{{ local_cache }}/{{ unattend_install_iso }}"

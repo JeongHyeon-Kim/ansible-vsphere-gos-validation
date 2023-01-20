@@ -1,4 +1,4 @@
-# Copyright 2022 VMware, Inc.
+# Copyright 2022-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 # Unmount a NFS storage or an ISO image from local machine
@@ -8,7 +8,7 @@
 #     if set to true. Default is false.
 #
 - name: "Unmount {{ mount_path }} on localhost"
-  mount:
+  ansible.posix.mount:
     path: "{{ mount_path }}"
     fstab: "/tmp/temp.fstab"
     state: absent

@@ -1,10 +1,11 @@
-# Copyright 2021-2022 VMware, Inc.
+# Copyright 2021-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 - import_playbook: deploy_vm/deploy_vm.yml
 - import_playbook: check_inbox_driver/check_inbox_driver.yml
-- import_playbook: secureboot_enable_disable/secureboot_enable_disable.yml
 - import_playbook: wintools_complete_install_verify/wintools_complete_install_verify.yml
+- import_playbook: guest_os_inplace_upgrade/guest_os_inplace_upgrade.yml
+- import_playbook: secureboot_enable_disable/secureboot_enable_disable.yml
 - import_playbook: check_efi_firmware/check_efi_firmware.yml
 - import_playbook: check_ip_address/check_ip_address.yml
 - import_playbook: check_os_fullname/check_os_fullname.yml
@@ -25,7 +26,9 @@
 - import_playbook: cpu_multicores_per_socket/cpu_multicores_per_socket.yml
 - import_playbook: guest_customization/gosc_sanity_staticip.yml
 - import_playbook: guest_customization/gosc_sanity_dhcp.yml
+- import_playbook: wsl_distro_install_uninstall/wsl_distro_install_uninstall.yml
 - import_playbook: vbs_enable_disable/vbs_enable_disable.yml
+- import_playbook: eflow_deploy/eflow_deploy.yml
 - import_playbook: wintools_uninstall_verify/wintools_uninstall_verify.yml
 - import_playbook: cpu_hot_add_basic/cpu_hot_add_basic.yml
 ...

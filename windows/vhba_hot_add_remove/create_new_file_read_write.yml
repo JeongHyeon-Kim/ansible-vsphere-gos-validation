@@ -1,4 +1,4 @@
-# Copyright 2022 VMware, Inc.
+# Copyright 2022-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 - name: "Set fact of the file path to do disk write test"
@@ -107,8 +107,7 @@
     - not new_disk_is_online
     - test_disk_controller_type == 'lsilogicsas'
     - test_purpose == "hot-add"
-    - guest_os_ansible_distribution is defined
-    - "'Windows Server' in guest_os_ansible_distribution" 
+    - "'Windows Server' in guest_os_ansible_distribution"
 
 - name: "Check file content"
   ansible.builtin.assert:

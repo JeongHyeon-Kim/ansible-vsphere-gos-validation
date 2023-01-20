@@ -1,4 +1,4 @@
-# Copyright 2021-2022 VMware, Inc.
+# Copyright 2021-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 # This file is used to hotadd and hot remove disk controller and disk of VM.
@@ -16,7 +16,7 @@
 # or not get the new disk controller bus number, this test case
 # will be "No Run".
 - block:
-    - include_tasks: vhba_test_prepare.yml 
+    - include_tasks: vhba_test_prepare.yml
     - include_tasks: hotadd_remove_vhba_test.yml
       when: >
         (test_purpose == "hot-add") or

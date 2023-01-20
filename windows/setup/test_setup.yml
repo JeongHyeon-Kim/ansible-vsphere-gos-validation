@@ -1,4 +1,4 @@
-# Copyright 2021-2022 VMware, Inc.
+# Copyright 2021-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 # Below tasks will be executed at the beginning of each test case, to check
@@ -9,6 +9,13 @@
   ansible.builtin.set_fact:
     current_testcase_name: "{{ ansible_play_name }}"
     current_test_log_folder: "{{ testrun_log_path }}/{{ ansible_play_name }}"
+
+- name: "Create current test case log folder when required"
+  include_tasks: ../../common/create_directory.yml
+  vars:
+    dir_path: "{{ current_test_log_folder }}"
+    dir_mode: "0777"
+  when: create_current_test_folder is defined and create_current_test_folder
 
 - include_tasks: base_snapshot_check_revert.yml
 

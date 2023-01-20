@@ -1,4 +1,4 @@
-# Copyright 2021-2022 VMware, Inc.
+# Copyright 2021-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 # Description:
@@ -21,7 +21,6 @@
           ansible.builtin.set_fact:
             skip_vmxnet3_no_vmtools: false
           when:
-            - guest_os_with_inbox_drivers is defined
             - guest_os_with_inbox_drivers
 
         - include_tasks: ../setup/test_setup.yml

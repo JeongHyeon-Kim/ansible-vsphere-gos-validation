@@ -1,10 +1,10 @@
-# Copyright 2022 VMware, Inc.
+# Copyright 2022-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 # Create new directory with specified path
 # Parameters:
 #   dir_path: the new directory path to be created
-#   dir_mode: the permission of new directory, defualt is '0755' 
+#   dir_mode: the permission of new directory, default is '0755'
 #
 - name: "Create new directory '{{ dir_path }}'"
   ansible.builtin.file:

@@ -1,6 +1,9 @@
-# This file listed guest OS customization(GOSC) testing supported OS start versions, vCenter Server versions and builds and depended open-vm-tools versions. OS releases listed in this file are supported by ansible-vsphere-gos-validation for GOSC testing. For all OS releases supported guest OS customization on vSphere, please see https://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf. 
+# Copyright 2023 VMware, Inc.
+# SPDX-License-Identifier: BSD-2-Clause
+---
+# This file listed guest OS customization(GOSC) testing supported OS start versions, vCenter Server versions and builds and depended open-vm-tools versions. OS releases listed in this file are supported by ansible-vsphere-gos-validation for GOSC testing. For all OS releases supported guest OS customization on vSphere, please see https://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf.
 # See https://kb.vmware.com/s/article/2143838 for build numbers and versions of VMware vCenter Server.
-# Note: All build numbers listed below are the build numbers of Client/MOB/vpxd.log. 
+# Note: All build numbers listed below are the build numbers of Client/MOB/vpxd.log.
 
 # SLES 15.3 and higher version supports GOSC testing on vCenter Server 6.7.0 from build 14368073, or higher vCenter Server versions.
 SLES:
@@ -48,12 +51,12 @@ AlmaLinux:
       7.0.2: N/A
       7.0.3: 20051473
 
-# Debian 10.10 and higher version doesn't support GOSC on vCenter Server 7.0.3 and earlier vCenter Server versions.
+# Debian 10.10 and higher version supports GOSC on vCenter Server 8.0.0 GA release or later (from build 20519528).
 # See https://kb.vmware.com/s/article/85845.
 Debian:
   '10.10':
     vcenter:
-      7.0.3: N/A
+      8.0.0: 20519528
 
 # 1. Ubuntu 18.04 supports GOSC testing on vCenter Server 6.7.0 from build 14368073, or higher vCenter Server versions,
 # and requires open-vm-tools 10.3.10 or higher versions. See https://kb.vmware.com/s/article/56409.

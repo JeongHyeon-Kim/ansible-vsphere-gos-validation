@@ -1,4 +1,4 @@
-# Copyright 2022 VMware, Inc.
+# Copyright 2022-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 # Deploy a new Windows VM through the Windows OVF/OVA template
@@ -61,4 +61,4 @@
     ovf_vm_hardware_config_path: "{{ current_test_log_folder }}"
 
 # Reconfigure deployed VM
-# - include_tasks: reconfig_deployed_vm.yml 
+# - include_tasks: reconfig_deployed_vm.yml

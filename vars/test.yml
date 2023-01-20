@@ -1,4 +1,4 @@
-# Copyright 2021-2022 VMware, Inc.
+# Copyright 2021-2023 VMware, Inc.
 # SPDX-License-Identifier: BSD-2-Clause
 ---
 #####################################
@@ -85,9 +85,6 @@ datacenter: "MyDatacenter"
 esxi_hostname: "esxi.test.com"
 esxi_username: "root"
 esxi_password: "CHANGEME"
-
-# ESXi default shell command. Default shell command is "/bin/sh"
-# esxi_shell: "/bin/sh"
 
 validate_certs: false
 
@@ -256,7 +253,7 @@ unattend_install_conf: "RHEL/8/server_with_GUI/ks.cfg"
 
 # For Windows testing only.
 # By default, if boot disk controller of new Windows VM is PVSCSI, PVSCSI driver will be extracted from latest
-# VMware tools bundle and put to a new ISO file with Autounattend.xml for guest auto install.
+# VMware Tools bundle and put to a new ISO file with Autounattend.xml for guest auto install.
 # Start from Windows Server 2022, there are inboxed PVSCSI and VMXNET3 drivers in OS, so when this parameter is
 # set to "true", inboxed PVSCSI driver will be used for guest install when parameter 'boot_disk_controller' is
 # set to 'paravirtual'. Also, 'network_adapter_type' can be set to 'vmxnet3'.
@@ -273,8 +270,9 @@ windows_has_inbox_driver: true
 
 # 2. Linux: ovt_verify_install
 #    Windows: wintools_complete_install_verify
-# If set to true, VMware tools will be installed when there is no VMware tools in VM or
-# reinstalled if there is VMware tools in VM already. Default value is true.
+# If VMware Tools status is already installed and running in VM, and this parameter is set to true,
+# will uninstall existing VMware Tools firstly, then install VMware Tools from the source configured below.
+# Default value is true.
 #
 # update_vmtools: true
 
@@ -287,20 +285,43 @@ windows_has_inbox_driver: true
 #
 # linux_ovt_repo_url: "http://mirror.stream.centos.org/9-stream/BaseOS/x86_64/os"
 
-# In Windows test case 'wintools_complete_install_verify', there are 3 methods to configure the source of VMware tools.
+# In Windows test case 'wintools_complete_install_verify', there are 3 methods to configure the source of VMware Tools.
 # (1) ESXi host bundled:
-# set 'vmtools_esxi_bundled' to true, 'vmtools_url_path' and 'vmtools_iso_path' will be ignored,
-# (2) download from URL:
-# set 'vmtools_esxi_bundled' to false and set 'vmtools_url_path' to the correct URL path,
+# By default, install ESXi host bundled VMware Tools when 'vmtools_esxi_bundled', 'vmtools_url_path',
+# 'vmtools_iso_path' parameters are not set, or when 'vmtools_esxi_bundled' is set to true, 'vmtools_url_path' and
+# 'vmtools_iso_path' parameters will be ignored.
+# (2) Download from URL:
+# Install VMware Tools from the downloaded ISO file when 'vmtools_esxi_bundled' is not set or set to false, and
+# 'vmtools_url_path' is set to the valid URL path.
 # (3) ESXi host datastore:
-# set 'vmtools_esxi_bundled' to false and set 'vmtools_iso_path' to the file path in datastore,
+# Install VMware Tools from the ISO file in ESXi datastore when 'vmtools_esxi_bundled' is not set or set to false, and
+# 'vmtools_iso_path' is set to the valid file path in this format: '[datastore_name] ISO_image_path/ISO_image_file'.
 # 'vmtools_url_path' takes precedence over 'vmtools_iso_path'.
 #
 vmtools_esxi_bundled: false
 vmtools_url_path: "https://packages.vmware.com/tools/releases/12.1.5/windows/VMware-tools-windows-12.1.5-20735119.iso"
 # vmtools_iso_path: "[datastore1] VMware/VMTools/12.1.5/windows/VMware-tools-windows-12.1.5-20735119.iso"
 
-# 3. memory_hot_add_basic
+# 3. guest_os_inplace_upgrade
+# The file path of OS installation ISO image used for OS in-place upgrade in ESXi datastore in this format:
+# '[datastore_name] ISO_image_path/ISO_image_file'.
+# This parameter is requiured in test case 'guest_os_inplace_upgrade'.
+#
+os_installation_iso_upgrade: ""
+
+# For Windows testing only.
+# The product key used for OS in-place upgrade.
+# This parameter is requiured in Windows Server upgrade.
+#
+windows_product_key_upgrade: "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
+
+# For Windows testing only.
+# For upgrading guest OS to Windows pre-release builds, need to set this parameter to 'true',
+# then testing signing will be enabled in guest OS before executing guest OS upgrade.
+#
+# enable_test_mode: false
+
+# 4. memory_hot_add_basic
 # Maximum memory size in MB of VM when doing memory hotadd test. Used in Linux testing
 # only for now.
 # In Linux test case, the initial memory size of VM will be reset to 2048 MB
@@ -310,7 +331,7 @@ vmtools_url_path: "https://packages.vmware.com/tools/releases/12.1.5/windows/VMw
 #
 # vm_memory_hotadd_max: 16384
 
-# 4. cpu_hot_add_basic
+# 5. cpu_hot_add_basic
 #    cpu_multicores_per_socket
 # Maximum vCPU number of VM when doing CPU hotadd and CPU multiple cores per
 # socket test.
@@ -319,7 +340,7 @@ vmtools_url_path: "https://packages.vmware.com/tools/releases/12.1.5/windows/VMw
 #
 # vm_cpu_hotadd_max: 16
 
-# 5. gosc_perl_dhcp
+# 6. gosc_perl_dhcp
 #    gosc_cloudinit_dhcp
 # By default, VM network will be set to the new created portgroup in test case
 # 'gosc_perl_staticip' or 'gosc_cloudinit_staticip' during GOS customization.
